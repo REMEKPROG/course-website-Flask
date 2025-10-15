@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CourseWeb</title>
+    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='Weblogo.png')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/fc8a4d7559.js" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='scripts/animateOnScroll.js')}}"></script>
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+<nav>
+    <div class="nav-container">
+        <div class="main-nav">
+            <div class="hamburger-menu-icon">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="left-nav-elements main-nav-elements">
+                <a href="/">CourseWeb</a>
+                <div class="menu-dropdown-element">
+                    <a href="">Kursy</a>
+                    <ul class="menu-dropdown">
+                        <li>
+                            <a href="">Python</a>
+                            <a href="">JavaScript</a>
+                            <a href="">PHP</a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="">Testy</a>
+                <a href="">Kontakt</a>
+            </div>
+            <div class="right-nav-elements main-nav-elements">
+                {% if not user %}
+                    <a href="/login">Logowanie</a>
+                {% else %}
+                    <a href="/logout">wyloguj</a>
+                {% endif %}
+                    <a href="/register">Rejestracja</a>
+                {% if user %}
+                    <div class="user-data-dropdown-element">
+                        <span class="user-data-link-desktop"><i class="fas fa-user"></i></span>
+                        <div class="user-data-block" data-active="disabled">
+                            <div class="user-data-components">
+                                <div class="user-header">
+                                    <h3>Twoje dane</h3>
+                                </div>
+                                <hr>
+                                <div class="user-data">
+                                    <div class="data login-data">
+                                        <div class="data-icon">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <div class="data-content">
+                                            <h4>Login</h4>
+                                            <hr>
+                                            <h5>{{user.login}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="data email-data">
+                                        <div class="data-icon">
+                                            <i class="fas fa-envelope"></i>
+                                        </div>
+                                        <div class="data-content">
+                                            <h4>E-mail</h4>
+                                            <hr>
+                                            <h5>{{user.email}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="data age-data">
+                                        <div class="data-icon">
+                                            <i class="fas fa-child"></i>
+                                        </div>
+                                        <div class="data-content">
+                                            <h4>Wiek</h4>
+                                            <hr>
+                                            <h5>{{user.age}}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="change-password-button">
+                                    <button>Zmień hasło</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="side-nav" data-active="disable">
+            <div class="left-nav-side-elements side-parent-elements side-elements">
+                <a href="/">CourseWeb</a>
+                <span class="activator">Kursy</span>
+                <div class="menu-side-dropdown-element">
+                    <ul class="menu-side-dropdown" data-active="disable">
+                        <li>
+                            <a href="">Python</a>
+                            <a href="">JavaScript</a>
+                            <a href="">PHP</a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="">Testy</a>
+                <a href="">Kontakt</a>
+            </div>
+            <div class="right-nav-side-elements side-parent-elements side-elements">
+                {% if not user%}
+                <a href="/login">Logowanie</a>
+                {% else %}
+                <a href="/logout">Wyloguj</a>
+                {% endif %}
+                <a href="/register">Rejestracja</a>
+                {% if user %}
+                <a href="/clientData" class="data-user-link-mobile"><i class="fas fa-user"></i></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>
+{% block body %}{% endblock %}
+
+    <footer>
+        <div class="footer-components">
+            <div class="footer-elements-container">
+                <div class="logo-section">
+                    <img src="{{url_for('static', filename='Weblogo.png')}}" alt="web-Logo">
+                </div>
+                <div class="menu-footer-section">
+                    <div class="menu-footer">
+                        <ul>
+                            <li>
+                                <a href="/">CourseWeb</a>
+                            </li>
+                            <li>
+                                <span>Kursy</span>
+                                <div class="footer-dropdown">
+                                    <ul>
+                                        <li>
+                                            <a href="">Python</a>
+                                        </li>
+                                        <li>
+                                            <a href="">JavaScript</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="">Testy</a>
+                            </li>
+                            {% if not user %}
+                            <li>
+                                <a href="/login">Logowanie</a>
+                            </li>
+                            {% else %}
+                            <li>
+                                <a href="/logout">Wyloguj</a>
+                            </li>
+
+                            {% endif %}
+                            <li>
+                                <a href="/register">Rejestracja</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="hardLine"></div>
+            <div class="copyright-elements">
+                <h4 class="email">remik.ganda@gmail.com</h4>
+                <h4 class="copyright">&copy;CodeWeb - 2025</h4>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

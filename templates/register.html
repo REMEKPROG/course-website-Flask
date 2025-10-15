@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/registerLogin.css')}}">
+{% endblock %}
+
+{% block body %}
+<main>
+    <section class="register-section">
+        <div class="register-container">
+            <div class="register-title">
+                <h1 class="form-header">Rejestracja</h1>
+            </div>
+            <div class="register-components">
+                <form class="login-password-form" action="/register", method="POST">
+                    <div class="login-password">
+                        <div class="data-components-position">
+                            <div class="login-elements data-components">
+                                <div class="icon-element">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <input type="text" id="login" name="login" placeholder="login" maxlength="30">
+                            </div>
+                            <div class="login-warning warning-block">
+                                <p id="login-warning" style="display: none;">Twój login nie spełnia wymagań!</p>
+                            </div>
+                        </div>
+                        <div class="data-components-position">
+                            <div class="password-elements data-components">
+                                <div class="icon-element">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <input type="password" id="password" name="password" placeholder="password">
+                            </div>
+                            <div class="password-warning warning-block">
+                                <p id="password-warning" style="display: none;">Twoje hasło jest nieprawidłowe!</p>
+                            </div>
+                        </div>
+                        <div class="data-components-position">
+                            <div class="email-elements data-components">
+                                <div class="icon-element">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <input type="text" id="email" name="email" placeholder="e-mail" maxlength="70">
+                            </div>
+                            <div class="email-warning warning-block">
+                                <p id="email-warning" style="display: none;">Twoje adres e-mail nie jest prawdiłowy!</p>
+                            </div>
+                        </div>
+                        <div class="data-components-position">
+                            <div class="age-elements data-components">
+                                <div class="icon-element">
+                                    <i class="fas fa-child"></i>
+                                </div>
+                                <input type="number" id="age" name="age" placeholder="age" min="13">
+                            </div>
+                            <div class="age-warning warning-block">
+                                <p id="age-warning" style="display: none;">Wiek musi być równy 13 lub więcej!</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="register-button submit-button">
+                        <button type="submit" disabled>Zarejestruj</button>
+                    </div>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, msg in messages %}
+                            <div class="alert alert-type-{{category}}">
+                                <p>{{ msg }}</p>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+    <script src="{{url_for('static', filename='scripts/validateRegister.js')}}"></script>
+{% endblock %}

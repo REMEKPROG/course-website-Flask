@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+
+{% block body %}
+
+<main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, msg in messages %}
+                <div class="alert alert-type-{{category}}">
+                    <p>{{ msg }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="top-section">
+        <div class="top-elements-container">
+            <div class="text-section">
+                <div class="text-container">
+                    <h1>Chcesz nauczyć się programować? <br> Naucz się razem z nami</h1>
+                </div>
+            </div>
+            <div class="hero-image-section">
+                <div class="image-container">
+                    <img src="/static/img/coding-hero-first.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="filler"></div>
+
+    <section class="cards-promote-section wrapper">
+        <div class="cards-container">
+            <div class="create-card card animate">
+                <div class="card-header">
+                    <div class="icon-tag">
+                        <i class="fas fa-marker"></i>
+                    </div>
+                <h3>Twórz kursy!</h3>
+                </div>
+                <div class="card-content">
+                    <p>Podziel się swoją wiedzą z innymi i zostań mentorem. Twórz interaktywne lekcje, dodawaj quizy i projekty, a wszystko to w prostym, intuicyjnym edytorze.
+                    Zbuduj własny kurs programowania i inspiruj kolejne pokolenie twórców!</p>
+                </div>
+                <div class="card-button-link">
+                    <button>
+                        <a href="">Stwórz kurs!</a>
+                    </button>
+                </div>
+            </div>
+            <div class="make-card card animate">
+                <div class="card-header">
+                    <div class="icon-tag">
+                        <i class="fas fa-book"></i>
+                    </div>
+                <h3>Rozwiązuj testy!</h3>
+                </div>
+                <div class="card-content">
+                    <p>Sprawdź swoją wiedzę w praktyce! Nasze testy i quizy pomogą Ci utrwalić materiał, odkryć braki i rozwijać się szybciej.
+                    Każde pytanie to szansa na naukę – zdobywaj punkty, bij rekordy i doskonal swoje umiejętności programistyczne.</p>
+                </div>
+                <div class="card-button-link">
+                    <button>
+                        <a href="">Testy</a>
+                    </button>
+                </div>
+            </div>
+            <div class="rate-card card animate">
+                <div class="card-header">
+                    <div class="icon-tag">
+                        <i class="fas fa-star"></i>
+                    </div>
+                <h3>oceniaj kursy!</h3>
+                </div>
+                <div class="card-content">
+                    <p>Podziel się swoją opinią i pomóż nam tworzyć jeszcze lepsze treści. Twoja ocena ma znaczenie – dzięki niej autorzy wiedzą, co działa, a co można ulepszyć.
+                    Głosuj, komentuj i wspieraj twórców, którzy pomagają innym rozwijać się w świecie programowania.</p>
+                </div>
+                <div class="card-button-link">
+                    <button>
+                        <a href="">Kursy</a>
+                    </button>
+                </div>
+            </div> 
+        </div>
+    </section>
+
+    <div class="filler"></div>
+
+    <section class="course-offer-action-box wrapper-action-box">
+        <div class="course-offer-container action-box-container animate">
+            <div class="course-offer-title action-box-title">
+                <h2>Nie umiesz programować?</h2>
+            </div>
+            <div class="course-offer-modules action-box-modules">
+                <button>
+                    <a href="">Kursy</a>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="filler"></div>
+
+
+    <section class="fillar-info-section wrapper">
+        <div class="fillar-info-container">
+            <div class="fillar-header-fixed">
+                <h3>ucz się, twórz, inspiruj</h3>
+            </div>
+            <div class="fillar-content">
+                <p>Otwórz drzwi do świata programowania i rozwoju osobistego. Nasza platforma to miejsce, w którym nauka staje się przygodą, a zdobywanie nowych umiejętności – sposobem na tworzenie czegoś wyjątkowego.
+                Znajdziesz tu kursy prowadzone przez pasjonatów, praktyczne zadania i testy, które pomogą Ci w utrwaleniu wiedzy. Każdy moduł to krok w stronę samodzielnego myślenia, kreatywności i odwagi do realizowania własnych pomysłów.
+                Twórz swoje projekty, eksperymentuj i ucz się poprzez działanie. Nie bój się popełniać błędów – to one prowadzą do najlepszych odkryć. Inspiruj innych swoimi osiągnięciami, dziel się wiedzą i buduj społeczność, w której rozwój to wspólna pasja.
+                Bo tu nauka nie kończy się na teorii – tu zaczyna się prawdziwe tworzenie.</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="{{url_for('static', filename='scripts/main.js')}}"></script>
+<script src="{{url_for('static', filename='scripts/sidenav.js')}}"></script>
+
+{% endblock %}
