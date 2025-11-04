@@ -1,0 +1,83 @@
+{% extends 'base.html' %} 
+
+{% block head %}
+    {{ super() }}
+        <link rel="stylesheet" href="{{url_for('static', filename='css/coursesSite.css')}}">
+{% endblock %}
+ 
+
+{% block body %}
+ <main>
+        <section class="filter-bar-section">
+            <div class="filter-container">
+                <form class="filter-form" action="" method="post">
+                    <div class="language-choice">
+                    <label for="language">język programowania:</label>
+                    <select name="language" id="language">
+                        <option value="all">Wszystkie</option>
+                        {% for language in languages %}
+                            <option value="{{language}}">{{language}}</option>
+                        {% endfor %}
+                    </select>
+                    </div>
+                    <div class="rating-choice">
+                        <label for="rating">Ocena:</label>
+                        <select name="rating" id="rating">
+                            <option value="none">-</option>
+                            <option value="highest">Od największej</option>
+                            <option value="lowest">Od najmniejszej</option>
+                        </select>
+                    </div>
+                    <div class="date-choice">
+                        <label for="date">data utworzenia:</label>
+                        <select name="date" id="date">
+                            <option value="none">-</option>
+                            <option value="earliest">od najstarszych</option>
+                            <option value="oldest">od najmłodszych</option>
+                        </select>
+                    </div>
+                    <button class="submit-button" type="submit">Szukaj</button>
+                </form>
+            </div>
+        </section>
+        <section class="courses-section wrapper">
+            <div class="courses-container">
+                <div class="courses-data">
+                    {% for data in courses %}
+                    <div class="course">
+                        <div class="course-img">
+                            <img src="{{data.image_path}}" alt="pythonCourse">
+                        </div>
+                        <div class="course-content">
+                            <div class="course-content-header">
+                                <h3>{{data.title}}</h3>
+                            </div>
+                            <div class="course-content-description">
+                                {% if data.shorter_description == None %}
+                                    <p></p>
+                                {% else %}
+                                    <p>{{data.shorter_description}}</p>
+                                {% endif %}
+                            </div>
+                            <div class="course-data">
+                                <p class="language-content">język: {{data.language}}</p>
+                                <p class="author-content">autor: {{data.login}}</p>
+                                <p class="added-date-content">Dodany: {{data.create_course_date}}</p>
+                                <p class="course-rating">ocena: {{data.rating}}</p>
+                            </div>
+                            <div class="course-view-button">
+                                <button>
+                                    <a href="">Zobacz więcej</a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="{{url_for('static', filename='scripts/showUserData.js')}}"></script>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    {{ super() }}
+        <link rel="stylesheet" href="{{url_for('static', filename='css/userData.css')}}">
+{% endblock %}
+
+{% block body %}
+<main>
+    
+    <section class="user-data-section">
+        <div class="user-data-container">
+            <div class="user-data-components">
+                <div class="user-header">
+                    <h3>Twoje dane</h3>
+                </div>
+                <hr>
+                <div class="user-data">
+                    <div class="data login-data">
+                        <div class="data-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="data-content">
+                            <h4>Login</h4>
+                            <hr>
+                            <h5>{{user.login}}</h5>
+                        </div>
+                    </div>
+                    <div class="data email-data">
+                        <div class="data-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="data-content">
+                            <h4>E-mail</h4>
+                            <hr>
+                            <h5>{{user.email}}</h5>
+                        </div>
+                    </div>
+                    <div class="data age-data">
+                        <div class="data-icon">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <div class="data-content">
+                            <h4>Wiek</h4>
+                            <hr>
+                            <h5>{{user.age}}</h5>
+                        </div>
+                        </div>
+                    </div>
+                <div class="change-password-button">
+                    <button>Zmień hasło</button>
+                </div>
+        </div>
+    </section>
+
+</main>
+
+
+
+    <script src="{{url_for('static', filename='scripts/sidenav.js')}}"></script>
+
+{% endblock %}

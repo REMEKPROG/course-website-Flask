@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/registerLogin.css')}}">
+{% endblock %}
+
+{% block body %}
+<main>
+{% with messages = get_flashed_messages(with_categories=true, category_filter=["success"]) %}
+    {% if messages %}
+            {% for category, msg in messages %}
+                 <div class="alert alert-type-{{category}}">
+                    <p>{{ msg }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+{% endwith %}
+    <section class="login-section">
+        <div class="login-container">
+            <div class="login-title">
+                <h1 class="form-header">Logowanie</h1>
+            </div>
+            <div class="login-components">
+                <form class="login-password-form" action="/login", method="POST">
+                    <div class="login-password">
+                        <div class="login-elements data-components">
+                            <div class="icon-element">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <input type="text" id="login" name="login" placeholder="login" maxlength="30">
+                        </div>
+                        <div class="login-elements data-components">
+                            <div class="icon-element">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <input type="password" id="password" name="password" placeholder="password">
+                        </div>
+                    </div>
+                    {% with messages = get_flashed_messages(with_categories=true, category_filter=["error"]) %}
+                        {% if messages %}
+                            {% for category, msg in messages %}
+                                <div class="alert alert-type-{{category}}"> 
+                                    <p>{{msg}}</p>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <div class="login-button submit-button">
+                        <button type="submit">Zaloguj</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
