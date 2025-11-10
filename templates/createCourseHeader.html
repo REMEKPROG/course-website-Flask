@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    {{ super() }}
+        <link rel="stylesheet" href="{{url_for('static', filename='css/createCourseHeader.css')}}">
+{% endblock %}
+
+{% block body %}
+
+<main>
+    <section class="courseHeaderInput-section">
+        <section class="courseHeaderInput-container">
+            <form action="" method="POST">
+                <div class="title-language-img-container">
+                    <div class="title-langauge-container">
+                        <label class="courseTitle" for="courseTitle">nagłówek kursu:</label>
+                        <input class="courseTitleInput" type="text" minlength="10" maxlength="50">
+                    </div>
+                    <div class="img-container">
+                        <img width="200px" height="200px" src="/static/img/default_image.png" alt="your-course-image">
+                    </div>
+                </div>
+                <div class="shorter-longer-description-container">
+                    <div class="shorter-description-container">
+                        <h2>Shorter-description</h2>
+                    </div>
+                    <div class="longer-description-container">
+                        <h2>Longer-description</h2>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </section>
+</main>
+
+<script src="{{url_for('static', filename='scripts/sidenav.js')}}"></script>
+<script src="{{url_for('static', filename='scripts/showUserData.js')}}"></script>
+
+{% endblock %}
