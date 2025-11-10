@@ -107,6 +107,7 @@ def checkPassword(password):
 def checkEmail(email):
     regex = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
     if re.fullmatch(regex, email):
+        print("No i dobra coś sobie dodałem")
         return email
     else:
         print(f"Email {email} is not valid")
