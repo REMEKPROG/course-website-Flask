@@ -10,22 +10,31 @@
 <main>
     <section class="courseHeaderInput-section">
         <section class="courseHeaderInput-container">
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <div class="title-language-img-container">
-                    <div class="title-langauge-container">
-                        <label class="courseTitle" for="courseTitle">nagłówek kursu:</label>
-                        <input class="courseTitleInput" type="text" minlength="10" maxlength="50">
+                    <div class="title-language-container">
+                        <div class="title-section hover-section">
+                            <label class="course-title label-element" for="course-title"><span class="required-tag">*</span>Nazwa kursu</label>
+                            <input class="course-title-input input-element" id="course-title" type="text" minlength="10" maxlength="50" placeholder="zaawansowany kurs pythona">
+                        </div>
+                        <div class="line-element"></div>
+                        <div class="language-section hover-section">
+                            <label class="course-language label-element" for="course-language">Język</label>
+                            <input class="course-language-input input-element" id="course-language" type="text" minlength="3" maxlength="50" placeholder="javaScript">
+                        </div>
                     </div>
                     <div class="img-container">
-                        <img width="200px" height="200px" src="/static/img/default_image.png" alt="your-course-image">
+                         <label class="image-label" for="course-image"></label>
+                         <input class="image-input" id="course-image" type="file" accept="image/png, image/jpg" name="course-image">
                     </div>
                 </div>
                 <div class="shorter-longer-description-container">
                     <div class="shorter-description-container">
-                        <h2>Shorter-description</h2>
+                        <input type="text" class="shorter-description-input" placeholder="krótszy opis" maxlength="100">
                     </div>
+                    <div class="line-element"></div>
                     <div class="longer-description-container">
-                        <h2>Longer-description</h2>
+                        <textarea name="longer-description" id="longer-description" class="longer-description" placeholder="dłuższy opis"></textarea>
                     </div>
                 </div>
             </form>
@@ -33,6 +42,7 @@
     </section>
 </main>
 
+<script src="{{url_for('static', filename='scripts/changeCourseImage.js')}}"></script>
 <script src="{{url_for('static', filename='scripts/sidenav.js')}}"></script>
 <script src="{{url_for('static', filename='scripts/showUserData.js')}}"></script>
 
