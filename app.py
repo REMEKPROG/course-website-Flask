@@ -6,6 +6,8 @@ from sqlalchemy.orm import joinedload
 from datetime import datetime, timedelta
 import os
 import re
+import cv2
+import shutil
 
 from sqlalchemy.exc import (
     DBAPIError,
@@ -282,19 +284,50 @@ def courseHeader():
             shorterDesc = request.form["shorterDescription"]
             longerDesc = request.form["longerDescription"]
 
-            print(courseTitle)
 
             formValidation = checkCourseData(courseTitle, courseLanguage, longerDesc)
+            def checkShorterDesc(shorterDesc):
+                shorter_description = ""
+                if shorterDesc == None:
+                    shorter_description = ""
+                else:
+                    shorter_description = shorterDesc
+                return shorter_description
+        
+            if formValidation[0]:
+                new_course = Course(
+                    user_id = idUser,
+                    language = courseLanguage.lower().capitalize(),
+                    image_path = fr'user_upload_data\\user_course_img\\' + str(idUser) + "-" + imagePath.filename,
+                    title = courseTitle.lower().capitalize(),
+                    shorter_description = checkShorterDesc(shorterDesc),
+                    description = longerDesc,
+                    rating = 0,
+                )
 
-            print(imagePath.filename)
-            print(os.path.join(fr'user_upload_data\user_course_img', imagePath.filename)) #do tego trzeba wrócić!
+                try:
+                    database.session.add(new_course)
+                    database.session.commit()
+                
+                except IntegrityError as e:
+                    database.session.rollback()
 
-            # if formValidation[0]:
-            #     print(imagePath)
-            # else:
-            #     flash(formValidation[1], "error")
-            #     return redirect("/createCourseHeader")
+                    flash("Wystąpił błąd podczas dodawania danych do bazy danych", "error")
+                    return redirect("/createCourseHeader")
+                imagePath.save(fr'user_upload_data\\user_course_img\\' + str(idUser) + "-" + imagePath.filename)
+            else:
+                flash(formValidation[1], "error")
+                return redirect("/createCourseHeader")
 
+    # id = database.Column(database.Integer, primary_key=True, autoincrement=True, nullable=False)
+    # user_id = database.Column(database.Integer, database.ForeignKey(Klient.id))
+    # language = database.Column(database.String(50))
+    # image_path = database.Column(database.String(300), nullable=True)
+    # title = database.Column(database.String(50), nullable=False)
+    # shorter_description = database.Column(database.String(100))
+    # description = database.Column(database.String(200), nullable=False)
+    # rating = database.Column(database.Integer, database.CheckConstraint("rating BETWEEN 0 AND 6"), default=0)
+    # create_course_date = database.Column(database.DateTime, default=datetime.utcnow, nullable=False)
 
         return render_template("createCourseHeader.html", user=userData)
 
