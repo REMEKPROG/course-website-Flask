@@ -8,6 +8,15 @@
 {% block body %}
 
 <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+            {% for category, msg in messages %}
+                 <div class="alert alert-type-{{category}}">
+                    <p>{{ msg }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <section class="courseHeaderInput-section">
         <section class="courseHeaderInput-container">
             <form action="" method="POST" enctype="multipart/form-data">
@@ -15,26 +24,31 @@
                     <div class="title-language-container">
                         <div class="title-section hover-section">
                             <label class="course-title label-element" for="course-title"><span class="required-tag">*</span>Nazwa kursu</label>
-                            <input class="course-title-input input-element" id="course-title" type="text" minlength="10" maxlength="50" placeholder="zaawansowany kurs pythona">
+                            <input name="courseTitle" class="course-title-input input-element" id="course-title" type="text" placeholder="zaawansowany kurs pythona">
                         </div>
                         <div class="line-element"></div>
                         <div class="language-section hover-section">
-                            <label class="course-language label-element" for="course-language">Język</label>
-                            <input class="course-language-input input-element" id="course-language" type="text" minlength="3" maxlength="50" placeholder="javaScript">
+                            <label class="course-language label-element" for="course-language"><span class="required-tag">*</span>Język</label>
+                            <input name="courseLanguage" class="course-language-input input-element" id="course-language" type="text" placeholder="javaScript">
                         </div>
                     </div>
                     <div class="img-container">
                          <label class="image-label" for="course-image"></label>
-                         <input class="image-input" id="course-image" type="file" accept="image/png, image/jpg" name="course-image">
+                         <input name="imagePath" class="image-input" id="course-image" type="file" accept="image/png, image/jpg" name="course-image">
                     </div>
                 </div>
                 <div class="shorter-longer-description-container">
                     <div class="shorter-description-container">
-                        <input type="text" class="shorter-description-input" placeholder="krótszy opis" maxlength="100">
+                        <input name="shorterDescription" type="text" class="shorter-description-input" placeholder="krótszy opis">
                     </div>
                     <div class="line-element"></div>
                     <div class="longer-description-container">
-                        <textarea name="longer-description" id="longer-description" class="longer-description" placeholder="dłuższy opis"></textarea>
+                        <span class="required-tag">*</span><textarea name="longerDescription" id="longer-description" class="longer-description" placeholder="dłuższy opis"></textarea>
+                    </div>
+                </div>
+                <div class="submit-button-section">
+                    <div class="button-container">
+                        <button type="submit">Stwórz kurs</button>
                     </div>
                 </div>
             </form>

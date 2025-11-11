@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from sqlalchemy.orm import joinedload
 from datetime import datetime, timedelta
+import os
 import re
 
 from sqlalchemy.exc import (
@@ -208,7 +209,6 @@ def coursesSite():
             query = Course.query
 
             languageChoiced = request.form["language"]
-            print(languageChoiced)
 
             if not languageChoiced == "all":
                 query = query.filter_by(language=languageChoiced)
@@ -222,9 +222,7 @@ def coursesSite():
             else:
                 query = query
 
-            print(ratingChoiced)
             dateUploadChoiced = request.form["date"]
-            print(dateUploadChoiced)
 
             if dateUploadChoiced == "earliest":
                 query = query.order_by(Course.create_course_date.desc())
@@ -238,14 +236,69 @@ def coursesSite():
 
         return render_template("courses.html", user=currentUser, courses=courseData, languages=languages)
 
-@app.route("/createCourseHeader")
+def checkCourseData(title, language, longerDesc):
+    message = ""
+    allowed = True
+    if len(title) < 10:
+        message = 'Nazwa jest za krótka! Minimalnie 10 znaków'
+        allowed = False
+    else:
+        if len(title) > 50:
+            message = "Nazwa jest za długa! Maksymalnie 50 znaków"
+            allowed = False
+    
+    if len(language) < 3:
+        message = "Pole język jest za krótkie! Minimum 3 znaki"
+        allowed = False
+    else:
+        if len(language) > 50:
+            message = "Pole język jest za długie! Maksymalnie 50 znaków"
+            allowed = False
+
+    if len(longerDesc) < 50:
+        message = "Dłuższy opis jest za krótki! Minimum 50 znaków"
+        allowed = False
+    else:
+        if len(longerDesc) > 200:
+            message = "Dłuższy opis jest za długi! Maksymalnie 200 znaków"
+            allowed = False
+
+    data = [allowed, message]
+
+    return data
+
+
+@app.route("/createCourseHeader", methods=["POST", "GET"])
 def courseHeader():
     idUser = session.get("userId")
     if idUser == None:
         return redirect("/login")
     else:
         userData = Klient.query.get_or_404(idUser)
+        if request.method == "POST":
+            courseTitle = request.form["courseTitle"]
+            courseLanguage = request.form["courseLanguage"]
+            imagePath = request.files["imagePath"]
+            shorterDesc = request.form["shorterDescription"]
+            longerDesc = request.form["longerDescription"]
+
+            print(courseTitle)
+
+            formValidation = checkCourseData(courseTitle, courseLanguage, longerDesc)
+
+            print(imagePath.filename)
+            print(os.path.join(fr'user_upload_data\user_course_img', imagePath.filename)) #do tego trzeba wrócić!
+
+            # if formValidation[0]:
+            #     print(imagePath)
+            # else:
+            #     flash(formValidation[1], "error")
+            #     return redirect("/createCourseHeader")
+
+
         return render_template("createCourseHeader.html", user=userData)
+
+    #kiedy uzywam w formularzu multipart/form-data to musze uzywac do plików request.files
 
 if __name__ in "__main__":
     app.run(debug=True)

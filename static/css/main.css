@@ -654,6 +654,16 @@ footer{
     font-size: 20px;
 }
 
+.alert-type-success {
+    background-color: rgba(0,255,0, 0.8);
+    color: rgb(20, 58, 20);
+}
+
+.alert-type-error{
+    background-color: rgba(255,0,0, 0.5);
+    color: rgba(53, 4, 4, 0.8);
+}
+
 
 
 
